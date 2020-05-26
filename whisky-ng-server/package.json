@@ -1,0 +1,17 @@
+{
+  "name": "whisky-ng-server",
+  "version": "1.0.0",
+  "description": "MEAN stack projet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Mongo",
+    "Express",
+    "Angular",
+    "Node"
+  ],
+  "author": "Julio (Udemy)",
+  "license": "ISC"
+}
