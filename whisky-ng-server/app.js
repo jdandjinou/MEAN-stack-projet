@@ -28,4 +28,3 @@ connection.once('open', () => {
 		console.log(`The server listen to port ${app.get('port')}`);
 	});
 });
-
