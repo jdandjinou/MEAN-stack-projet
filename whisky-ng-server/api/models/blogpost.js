@@ -8,4 +8,4 @@ const blogpostSchema = mongoose.Schema({
 	createdOn: {type: Date, default: Date.now}
 });
 
-module.exports = blogpostSchema;
+module.exports = mongoose.model('Blogpost', blogpostSchema);
