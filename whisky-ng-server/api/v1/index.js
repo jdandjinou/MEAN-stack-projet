@@ -52,4 +52,19 @@ router.post('/blogpost', (req, res) => {
 	});
 });
 
+router.delete('/blog-posts/:id', (req, res) => {
+	const id = req.params.id;
+	Blogpost.findByIdAndDelete(id, (err, blogPost) => {
+		if(err)
+			return res.status(500).json({
+				message: `The blog post with id ${id} not found to delete. `,
+				err: err
+			});
+		res.status(202).json({
+			message: `The blog post with id ${blogPost._id} is deleted`,
+		
+		});
+	});
+});
+
 module.exports = router;
