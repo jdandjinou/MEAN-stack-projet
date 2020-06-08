@@ -10,7 +10,10 @@ router.get('/blog-posts', (req, res) => {
 	Blogpost.find()
 		.sort({'createdOn': -1})
 		.exec()  // Retourne une promesse et est utilisé car on n'a pas utilisé de callback dans find()
-		.then(blogPost => res.status(200).json(blogPost))
+		.then(blogPost => {
+			res.status(200).json(blogPost);
+			console.log('connect with blogpost route');
+		})
 		.catch(err => {
 			res.status(500).json({
 				message: 'Blog post not found (',
