@@ -14,4 +14,8 @@ export class BlogpostService {
   public getBlogpost(): Observable<Blogpost[]> {
     return this.httpClient.get<Blogpost[]>(`${this.baseUrl}/blog-posts`);
   }
+
+  public getBlogpostById(id): Observable<Blogpost> {
+    return this.httpClient.get<Blogpost>(`${this.baseUrl}/blog-posts/${id}`);
+  }
 }
