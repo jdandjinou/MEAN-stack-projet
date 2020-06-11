@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { BlogpostListComponent } from './blogpost-list/blogpost-list.component';
-import { MaterialModule } from './material.module'
+import { MaterialModule } from './material.module';
+import { ErrorPageComponent } from './errorpage/errorpage.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     BlogpostComponent,
-    BlogpostListComponent
+    BlogpostListComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
