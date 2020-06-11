@@ -8,14 +8,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { BlogpostListComponent } from './blogpost-list/blogpost-list.component';
 import { MaterialModule } from './material.module';
-import { ErrorPageComponent } from './errorpage/errorpage.component'
+import { ErrorPageComponent } from './errorpage/errorpage.component';
+import { AdminComponent } from './admin/admin.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     BlogpostComponent,
     BlogpostListComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
