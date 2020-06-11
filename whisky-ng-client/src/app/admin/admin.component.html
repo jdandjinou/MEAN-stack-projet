@@ -7,3 +7,9 @@
   <mat-card>
     Blog posts selected: {{blogposts.selectedOptions.selected.length}}
   </mat-card>
+
+  <mat-card>
+      <mat-card-actions>
+        <button mat-raised-button (click)="deleteBlogposts(blogposts.selectedOptions.selected)">Delete</button>
+      </mat-card-actions>
+  </mat-card>

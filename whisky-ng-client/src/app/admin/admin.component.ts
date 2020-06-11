@@ -19,8 +19,14 @@ export class AdminComponent implements OnInit {
       .getBlogpost()
       .subscribe(blogposts => {
         this.allBlogposts = blogposts;
-        console.log(blogposts);
       } )
+  }
+
+  public deleteBlogposts(selectedOptions) {
+    const ids = selectedOptions.map(so => so.value)
+    return this.blogpostService
+      .deleteSimgleBlogPost(ids[0])
+      .subscribe((data) => console.log(data));
   }
 
 }
