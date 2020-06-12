@@ -10,7 +10,8 @@ import { BlogpostListComponent } from './blogpost-list/blogpost-list.component';
 import { MaterialModule } from './material.module';
 import { ErrorPageComponent } from './errorpage/errorpage.component';
 import { AdminComponent } from './admin/admin.component';
-import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.component'
+import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.component';
+import { ReactiveFormsModule , FormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.compo
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,16 @@
-<p>blogpost-create works!</p>
+<mat-card>
+    <form [formGroup]="creationForm" (submit)="createBlogPost()">
+        <div class="exemple-container">
+            <mat-form-field>
+                <input matInput placeholder="title" formControlName="title" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="sub-title" formControlName="subTitle" required>
+            </mat-form-field>
+            <mat-form-field>
+                <textarea matInput placeholder="content" formContronlName="content" required></textarea>
+            </mat-form-field>
+            <button mat-button type="submit">Create</button>
+        </div>
+    </form>
+</mat-card>
