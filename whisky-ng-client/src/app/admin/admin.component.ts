@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminComponent implements OnInit {
   allBlogposts: Blogpost[];
- // blogposts$: Observable
+ // blogposts$: Observable<Blogpost[]>
 
   constructor(private blogpostService: BlogpostService) { }
 

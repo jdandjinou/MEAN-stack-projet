@@ -10,6 +10,10 @@
 
   <mat-card>
       <mat-card-actions>
-        <button mat-raised-button (click)="deleteBlogposts(blogposts.selectedOptions.selected)">Delete</button>
+        <button mat-raised-button 
+        (click)="deleteBlogposts(blogposts.selectedOptions.selected)"
+        [disabled]="blogposts.selectedOptions.selected.length === 0">
+        Delete
+      </button>
       </mat-card-actions>
   </mat-card>
