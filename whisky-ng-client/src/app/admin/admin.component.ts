@@ -17,9 +17,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.blogpostService
       .getBlogpost()
-      .subscribe(blogposts => {
-        this.allBlogposts = blogposts;
-      } )
+      .subscribe(data => this.refresh(data));
   }
 
   public deleteBlogposts(selectedOptions) {
@@ -27,14 +25,24 @@ export class AdminComponent implements OnInit {
     if(ids.length === 1) {
       return this.blogpostService
         .deleteSimgleBlogPost(ids[0])
-        .subscribe((data) => console.log('data', data),  err => console.error(err));
+        .subscribe((data) => this.refresh(data),  err => console.error(err));
       
     } else {
       return this.blogpostService
         .deleteBlogPosts(ids)
-        .subscribe(data => console.log(data), err => console.error(err));
+        .subscribe(data => this.refresh(data), err => console.error(err));
     }
     
+  }
+
+  private refresh(data): void {
+    console.log('data', data);
+    this.blogpostService
+      .getBlogpost()
+      .subscribe(blogposts => {
+        this.allBlogposts = blogposts;
+      })
+
   }
 
 }
