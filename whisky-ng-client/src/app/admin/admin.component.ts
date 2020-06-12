@@ -25,12 +25,12 @@ export class AdminComponent implements OnInit {
     if(ids.length === 1) {
       return this.blogpostService
         .deleteSimgleBlogPost(ids[0])
-        .subscribe((data) => this.refresh(data),  err => console.error(err));
+        .subscribe((data) => this.refresh(data),  err => this.handleError(err));
       
     } else {
       return this.blogpostService
         .deleteBlogPosts(ids)
-        .subscribe(data => this.refresh(data), err => console.error(err));
+        .subscribe(data => this.refresh(data), err => this.handleError(err));
     }
     
   }
@@ -42,7 +42,11 @@ export class AdminComponent implements OnInit {
       .subscribe(blogposts => {
         this.allBlogposts = blogposts;
       })
-
   }
+
+  private handleError(error: Error): void {
+    console.error(error);
+  };
+ 
 
 }
