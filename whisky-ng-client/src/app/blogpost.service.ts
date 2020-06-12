@@ -22,5 +22,8 @@ export class BlogpostService {
   public deleteSimgleBlogPost(id: string) {
     return this.httpClient.delete(`${this.baseUrl}/blog-posts/${id}`);
   }
-
+  public deleteBlogPosts(ids: string[]): Observable<Object> {
+    const allIds = ids.join(','); // Transforme les éléments du tableau en string avec le séparateur
+    return this.httpClient.delete(`${this.baseUrl}/blog-posts/?ids=${allIds}`);
+  }
 }

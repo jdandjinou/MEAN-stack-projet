@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Blogpost = require('../models/blogpost');
+const mongoose = require('mongoose');
 
 router.get('/ping', (req, res) => {
 	res.status(200).json({msg: 'Pong', date: new Date()});
@@ -69,5 +70,25 @@ router.delete('/blog-posts/:id', (req, res) => {
 		});
 	});
 });
+
+router.delete('/blog-posts', (req, res) => {
+	// url de la forme: http://localhost:3000/api/v1/blog-post?ids=1z3es,qa12ess	 
+	const ids = req.query.ids;
+	console.log('ids', ids);
+	const allIds = ids.split(',').map(id => {
+		if(id.match(/^[0-9a-fA-F]{24}$/)) {
+			return mongoose.Types.ObjectId(id);
+		} else {
+			console.log('Id is not valid', id);
+		}
+	});
+	const conditions = { _id: { $in: allIds}};
+	Blogpost.deleteMany(conditions, (err, result) => {
+		if (err) {
+			return res.status(500).json(err);
+		}
+		res.status(202).json(result); // result est sous la forme { nb: 2, ok: true }
+	});
+}); 
 
 module.exports = router;

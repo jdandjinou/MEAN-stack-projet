@@ -24,9 +24,17 @@ export class AdminComponent implements OnInit {
 
   public deleteBlogposts(selectedOptions) {
     const ids = selectedOptions.map(so => so.value)
-    return this.blogpostService
-      .deleteSimgleBlogPost(ids[0])
-      .subscribe((data) => console.log(data));
+    if(ids.length === 1) {
+      return this.blogpostService
+        .deleteSimgleBlogPost(ids[0])
+        .subscribe((data) => console.log('data', data),  err => console.error(err));
+      
+    } else {
+      return this.blogpostService
+        .deleteBlogPosts(ids)
+        .subscribe(data => console.log(data), err => console.error(err));
+    }
+    
   }
 
 }
