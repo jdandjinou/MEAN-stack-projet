@@ -9,7 +9,8 @@ import { BlogpostComponent } from './blogpost/blogpost.component';
 import { BlogpostListComponent } from './blogpost-list/blogpost-list.component';
 import { MaterialModule } from './material.module';
 import { ErrorPageComponent } from './errorpage/errorpage.component';
-import { AdminComponent } from './admin/admin.component'
+import { AdminComponent } from './admin/admin.component';
+import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.component'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AdminComponent } from './admin/admin.component'
     BlogpostComponent,
     BlogpostListComponent,
     ErrorPageComponent,
-    AdminComponent
+    AdminComponent,
+    BlogpostCreateComponent
   ],
   imports: [
     BrowserModule,
