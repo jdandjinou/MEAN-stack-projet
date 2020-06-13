@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Blogpost = require('../models/blogpost');
 const mongoose = require('mongoose');
+const multer = require('multer');
+const crypto = require('crypto');
+const path = require('path');
 
 router.get('/ping', (req, res) => {
 	res.status(200).json({msg: 'Pong', date: new Date()});
@@ -34,16 +37,30 @@ router.get('/blog-posts/:id', (req, res) => {
 		}));	  
 });
 
-router.get('/blog-posts/:id?/:date', (req, res) => {
-	const date = req.params.date;
-	Blogpost.find({createdOn: date})
-		.exec()
-		.then(blogPost => res.status(200).json(blogPost))
-		.catch(err => res.status(500).json({
-			message: `The blog post created on ${date} not found `,
-			err: err
-		}));
-});
+// router.get('/blog-posts/:id?/:date', (req, res) => {
+// 	const date = req.params.date;
+// 	Blogpost.find({createdOn: date})
+// 		.exec()
+// 		.then(blogPost => res.status(200).json(blogPost))
+// 		.catch(err => res.status(500).json({
+// 			message: `The blog post created on ${date} not found `,
+// 			err: err
+// 		}));
+// });
+
+
+// file upload configuration
+
+multer.diskStorage({
+	destination: './uploads/',
+	filename: function(req, file, callback) {
+		crypto.pseudoRandomBytes(16, function(err, raw){
+			if(err) return callback(err);
+			callback(null, raw.toString('hex') + path.extname(file.originalname));
+
+		} )
+	}
+})
 
 router.post('/blog-posts', (req, res) => {
 	console.log('req.body', req.body);
