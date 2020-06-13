@@ -18,6 +18,13 @@ export class AdminComponent implements OnInit {
     this.blogpostService
       .getBlogpost()
       .subscribe(data => this.refresh(data));
+
+    this.blogpostService
+      .handleBlogpostCreated()
+      .subscribe(data => {
+        console.log('New blog post created with id ', data);
+        this.refresh(data);
+      })
   }
 
   public deleteBlogposts(selectedOptions) {

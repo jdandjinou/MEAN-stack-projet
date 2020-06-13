@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Blogpost } from './models/blogpost';
 
 @Injectable({
@@ -8,8 +8,17 @@ import { Blogpost } from './models/blogpost';
 })
 export class BlogpostService {
   public baseUrl = 'http://localhost:3000/api/v1';
+  private blogpostCreated = new Subject<string>();
 
   constructor(private httpClient: HttpClient) { }
+
+  public dispatchBlogpostCreated(id: string): void {
+    this.blogpostCreated.next(id);
+  }
+
+  public handleBlogpostCreated(): Observable<string> {
+    return this.blogpostCreated.asObservable();
+  }
 
   public getBlogpost(): Observable<Blogpost[]> {
     return this.httpClient.get<Blogpost[]>(`${this.baseUrl}/blog-posts`);
