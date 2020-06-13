@@ -26,4 +26,8 @@ export class BlogpostService {
     const allIds = ids.join(','); // Transforme les éléments du tableau en string avec le séparateur
     return this.httpClient.delete(`${this.baseUrl}/blog-posts/?ids=${allIds}`);
   }
+
+  public createBlogpost(blogpost: Blogpost): Observable<Blogpost> {
+    return this.httpClient.post<Blogpost>(`${this.baseUrl}/blog-posts`, blogpost)
+  }
 }

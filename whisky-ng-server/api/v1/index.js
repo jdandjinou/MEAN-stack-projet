@@ -45,7 +45,7 @@ router.get('/blog-posts/:id?/:date', (req, res) => {
 		}));
 });
 
-router.post('/blogpost', (req, res) => {
+router.post('/blog-posts', (req, res) => {
 	console.log('req.body', req.body);
 	const blogPost = new Blogpost(req.body);
 	blogPost.save((err, blogPost) => {
