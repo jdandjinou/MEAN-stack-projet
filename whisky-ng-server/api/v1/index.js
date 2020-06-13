@@ -50,17 +50,23 @@ router.get('/blog-posts/:id', (req, res) => {
 
 
 // file upload configuration
-
-multer.diskStorage({
+const storages = multer.diskStorage({
 	destination: './uploads/',
 	filename: function(req, file, callback) {
 		crypto.pseudoRandomBytes(16, function(err, raw){
 			if(err) return callback(err);
 			callback(null, raw.toString('hex') + path.extname(file.originalname));
 
-		} )
+		});
 	}
-})
+});
+
+const upload = multer({storage: storages});	
+
+// file upload
+router.post('/blog-posts/images', upload.single('blogImage'), (req, res) => {
+	res.status(201).send({filename: req.file.filename, file: req.file});
+});
 
 router.post('/blog-posts', (req, res) => {
 	console.log('req.body', req.body);
