@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormGroupDirective } from '@angular/forms';
 import { BlogpostService } from '../blogpost.service';
 import { Blogpost } from '../models/blogpost';
 
@@ -25,18 +25,20 @@ export class BlogpostCreateComponent implements OnInit {
     })
   }
 
-  public createBlogPost() {
+  public createBlogPost(formDirective: FormGroupDirective) {
     if(this.creationForm.valid) {
       console.log(this.creationForm.value);
       this.blogpostService
         .createBlogpost(this.creationForm.value)
-        .subscribe(data => this.handleSucces(data), error => this.handleError(error));
+        .subscribe(data => this.handleSucces(data, formDirective), error => this.handleError(error));
     }
       
   }
 
-  private handleSucces(blogpost: Blogpost): void {
+  private handleSucces(blogpost: Blogpost, formDirective: FormGroupDirective): void {
     console.log('Blog post is created', blogpost);
+    this.creationForm.reset();
+    formDirective.resetForm();
   }
 
   private handleError(error: Error): void {
