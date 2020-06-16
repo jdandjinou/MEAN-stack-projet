@@ -11,7 +11,8 @@ import { MaterialModule } from './material.module';
 import { ErrorPageComponent } from './errorpage/errorpage.component';
 import { AdminComponent } from './admin/admin.component';
 import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.component';
-import { ReactiveFormsModule , FormsModule } from '@angular/forms'
+import { ReactiveFormsModule , FormsModule } from '@angular/forms';
+import { BlogpostEditComponent } from './blogpost-edit/blogpost-edit.component'
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ReactiveFormsModule , FormsModule } from '@angular/forms'
     BlogpostListComponent,
     ErrorPageComponent,
     AdminComponent,
-    BlogpostCreateComponent
+    BlogpostCreateComponent,
+    BlogpostEditComponent
   ],
   imports: [
     BrowserModule,
