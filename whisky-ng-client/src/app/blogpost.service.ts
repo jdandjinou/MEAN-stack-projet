@@ -20,6 +20,10 @@ export class BlogpostService {
     return this.blogpostCreated.asObservable();
   }
 
+  public uploadImage(formaData: FormData) {
+    return this.httpClient.post<any>(`${this.baseUrl}/blog-posts/images`, formaData);
+  }
+
   public getBlogpost(): Observable<Blogpost[]> {
     return this.httpClient.get<Blogpost[]>(`${this.baseUrl}/blog-posts`);
   }

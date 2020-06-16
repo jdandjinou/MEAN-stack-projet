@@ -65,7 +65,7 @@ const upload = multer({storage: storages});
 
 // file upload
 router.post('/blog-posts/images', upload.single('blogImage'), (req, res) => {
-	if(!req.file.filename.match(/\.(jpg | jpeg | png)$/)) {
+	if(!req.file.filename.match(/\.(jpg|jpeg|png|PNG)$/)) {
 		return res.status(400).json({msg: 'Not image file uploaded'});
 	}
 	res.status(201).send({filename: req.file.filename, file: req.file});
