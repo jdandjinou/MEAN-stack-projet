@@ -6,12 +6,17 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const connection = mongoose.connection;
 const port3000 = 3000;
+const path = require('path');
 
 app.set('port', (process.env.PORT || port3000));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
+
+const uploadsDir = path.join(__dirname, './uploads');
+app.use(express.static(uploadsDir));
+
 app.use('/api/v1', api);
 app.use((req, res) => {
 	const err = new Error('404 - Not found!');
