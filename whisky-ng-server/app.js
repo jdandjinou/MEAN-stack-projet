@@ -24,7 +24,7 @@ app.use((req, res) => {
 	res.json({msg: '404 - Not found!', err: err});
 });
 
-mongoose.connect('mongodb://localhost:27017/whiskyngserver', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/whiskyngserver', { useNewUrlParser: true, useUnifiedTopology: true });
 connection.on('error', (err) => {
 	console.error(`Connection to MongoDB error ${err.message}`);
 });
