@@ -8,10 +8,10 @@
                 <input matInput placeholder="sub-title" formControlName="subTitle" [value]="bp.subTitle">
             </mat-form-field>
             <mat-form-field>
-               <textarea matInput placeholder="content" formControlName="content" [value]="bp.content"></textarea>
+                <textarea matInput placeholder="content" formControlName="content" [value]="bp.content"></textarea>
             </mat-form-field>
             <label for="image">Choose image</label>
-            <input type="file" name="image" id="image" [value]="bp.image">
+            <input type="file" name="image" id="blogImage" > <!--[value]="bp.image"--> <!--This line causes errors-->
             <button type="button" mat-button (click)="upload()">upload image</button>
             <button type="submit" >Update blog post</button>
            
