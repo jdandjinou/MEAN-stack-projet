@@ -2,13 +2,13 @@
     <form [formGroup]="editForm" #formDirective="ngForm" (submit)="updateBlogpost(formDirective)">
         <div class="example-container">
             <mat-form-field>
-                <input matInput placeholder="title" formControlName="title" [value]="bp.title">
+                <input matInput placeholder="title" formControlName="title" [value]="bp.title" required>
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="sub-title" formControlName="subTitle" [value]="bp.subTitle">
+                <input matInput placeholder="sub-title" formControlName="subTitle" [value]="bp.subTitle" required>
             </mat-form-field>
             <mat-form-field>
-                <textarea matInput placeholder="content" formControlName="content" [value]="bp.content"></textarea>
+                <textarea matInput placeholder="content" formControlName="content" [value]="bp.content" required></textarea>
             </mat-form-field>
             <label for="image">Choose image</label>
             <input type="file" name="image" id="blogImage" > <!--[value]="bp.image"--> <!--This line causes errors-->
