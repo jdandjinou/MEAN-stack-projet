@@ -23,7 +23,16 @@ export class BlogpostEditComponent implements OnInit {
     this.blogpostId = this.activateRoute.snapshot.paramMap.get('id');
     this.blogpostService
       .getBlogpostById(this.blogpostId)
-      .subscribe(data => this.blogpost = data, error => console.error(error)
+      .subscribe(data => {
+        this.blogpost = data;
+        this.editForm.patchValue({
+          title: data.title,
+          subTitle: data.subTitle,
+          image: data.image,
+          content: data.content
+        })
+      },
+      error => console.error(error)
     );
 
     this.createForm();
