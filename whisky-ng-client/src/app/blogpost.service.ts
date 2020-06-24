@@ -43,4 +43,8 @@ export class BlogpostService {
   public createBlogpost(blogpost: Blogpost): Observable<Blogpost> {
     return this.httpClient.post<Blogpost>(`${this.baseUrl}/blog-posts`, blogpost)
   }
+
+  public updateBlogPost(id: string, blogpost: Blogpost): Observable<Blogpost> {
+    return this.httpClient.put<Blogpost>(`${this.baseUrl}/blog-posts/${id}`, blogpost);
+  }
 }

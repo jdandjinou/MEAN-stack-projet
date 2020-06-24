@@ -119,6 +119,24 @@ router.delete('/blog-posts', (req, res) => {
 		}
 		res.status(202).json(result); // result est sous la forme { nb: 2, ok: true }
 	});
-}); 
+});
+
+router.put('/blog-posts/:id', upload.single('blogImage'), (req, res) => {
+	const id = req.params.id;
+	const condition = { _id: id };
+	const blogpost = { ...req.body, image: lastUploadImageName };
+	const update = { $set: blogpost };
+	const options = {
+		upsert: true,
+		new: true
+	};
+	Blogpost.findByIdAndUpdate(condition, update, options, (err, response) => {
+		if(err) {
+			res.status(500).json({msg: err});
+		}
+		res.status(200).json({msg: `The blog post with id ${id} updated.`, response: response});
+	});
+
+});
 
 module.exports = router;

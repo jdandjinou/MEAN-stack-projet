@@ -60,7 +60,23 @@ export class BlogpostEditComponent implements OnInit {
   }
 
   public updateBlogpost(formDirective: FormGroupDirective): void {
-
+    if (this.editForm.valid) {
+      console.log('updateBlog post in service')
+      this.blogpostService
+        .updateBlogPost(this.blogpostId, this.editForm.value)
+        .subscribe(data => this.handleSucces(data, formDirective), error => this.handleError(error));
+    }
   }
+
+  private handleSucces(data: Blogpost, formDirective: FormGroupDirective): void {
+    console.log('Ok, handleSucces. Blog post updated ', data);
+    this.editForm.reset();
+    formDirective.resetForm();
+    this.blogpostService.dispatchBlogpostCreated(data._id);
+  }
+
+  private handleError(error: Error): void {
+    console.log('Blog post not updated. Error ', error);
+  } 
 
 }
