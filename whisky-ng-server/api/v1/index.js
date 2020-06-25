@@ -6,6 +6,8 @@ const multer = require('multer');
 const crypto = require('crypto');
 const path = require('path');
 
+const resize = require('../../utils/resize');
+
 router.get('/ping', (req, res) => {
 	res.status(200).json({msg: 'Pong', date: new Date()});
 });
@@ -48,36 +50,23 @@ router.get('/blog-posts/:id', (req, res) => {
 // 		}));
 // });
 
-let lastUploadImageName = '';
-// file upload configuration
-const storages = multer.diskStorage({
-	destination: './uploads/',
-	filename: function(req, file, callback) {
-		crypto.pseudoRandomBytes(16, function(err, raw){
-			if(err) return callback(err);
-			// callback(null, raw.toString('hex') + path.extname(file.originalname));
-			lastUploadImageName = raw.toString('hex') + path.extname(file.originalname);
-			console.log('lastUploadImageNsame', lastUploadImageName);
-			callback(null, lastUploadImageName);
-
-		});
-	}
-});
-
-const upload = multer({storage: storages});	
-
-// file upload
-router.post('/blog-posts/images', upload.single('blogImage'), (req, res) => {
-	if(!req.file.filename.match(/\.(jpg|jpeg|png|PNG)$/)) {
-		return res.status(400).json({msg: 'Not image file uploaded'});
-	}
-	res.status(201).send({filename: req.file.filename, file: req.file});
-});
-
 router.post('/blog-posts', (req, res) => {
 	console.log('req.body', req.body);
 	// const blogPost = new Blogpost(req.body);
-	const blogPost = new Blogpost({ ...req.body, image: lastUploadImageName });
+	// const blogPost = new Blogpost({ ...req.body, image: lastUploadImageName });
+	const smallImagePath = `./uploads/${lastUploadImageName}`;
+	const outputName = `./uploads/small-${lastUploadImageName}`;
+	resize({path: smallImagePath, width:200, height: 200, outputName: outputName})
+		.then(data => {
+			console.log('Ok resize ', data.size);
+		})
+		.catch(err => console.error('error for resize ', err));
+	const blogPost = new Blogpost({
+		...req.body,
+		image: lastUploadImageName,
+		smallImage: `small-${lastUploadImageName}`
+	});
+	
 	blogPost.save((err, blogPost) => {
 		if(err) {
 			return res.status(500).json(err);
@@ -120,6 +109,40 @@ router.delete('/blog-posts', (req, res) => {
 		res.status(202).json(result); // result est sous la forme { nb: 2, ok: true }
 	});
 });
+
+
+let lastUploadImageName = '';
+// file upload configuration
+const storages = multer.diskStorage({
+	destination: './uploads/',
+	filename: function(req, file, callback) {
+		crypto.pseudoRandomBytes(16, function(err, raw){
+			if(err) return callback(err);
+			// callback(null, raw.toString('hex') + path.extname(file.originalname));
+			lastUploadImageName = raw.toString('hex') + path.extname(file.originalname);
+			console.log('lastUploadImageNsame', lastUploadImageName);
+			callback(null, lastUploadImageName);
+
+		});
+	}
+});
+
+const upload = multer({storage: storages});	
+
+// file upload route
+router.post('/blog-posts/images', upload.single('blogImage'), (req, res) => {
+	if(!req.file.filename.match(/\.(jpg|jpeg|png|PNG)$/)) {
+		return res.status(400).json({msg: 'Not image file uploaded'});
+	}
+	res.status(201).send({filename: req.file.filename, file: req.file});
+});
+
+
+// router.get('/images/:image', (req, res) => {
+// 	const image = req.params.image;
+// 	res.sendFile(path.join(__dirname, `./uploads/${image}`));
+// });
+
 
 router.put('/blog-posts/:id', upload.single('blogImage'), (req, res) => {
 	const id = req.params.id;
