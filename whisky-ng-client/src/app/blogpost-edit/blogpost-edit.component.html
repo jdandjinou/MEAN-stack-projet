@@ -13,7 +13,7 @@
             <label for="image">Choose image</label>
             <input type="file" name="image" id="blogImage" > <!--[value]="bp.image"--> <!--This line causes errors-->
             <button type="button" mat-button (click)="upload()">upload image</button>
-            <button type="submit" >Update blog post</button>
+            <button type="submit" [disabled]="!formDirective.valid">Update blog post</button>
            
         </div>
     </form>

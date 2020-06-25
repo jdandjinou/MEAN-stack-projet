@@ -14,7 +14,7 @@
             <input type="file" name="image" id="blogImage" formControlName="image">
             <button type="button" mat-button (click)="uploadImage()">Upload image</button>
 
-            <button mat-button type="submit">Create blog post</button>
+            <button mat-button type="submit" [disabled]="!formDirective.valid">Create blog post</button>
         </div>
     </form>
 </mat-card>
