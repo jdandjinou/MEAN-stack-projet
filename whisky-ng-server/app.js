@@ -14,6 +14,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
+const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const Strategy = require('passport-local').Strategy;
+
+app.use(cookieParser());
+app.use(session({
+	secret: 'My top secret',
+	resave: true,
+	saveUninitialized: true
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser((user, cb) => {
+	cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+	cb(null, user);
+});
+
 const uploadsDir = path.join(__dirname, './uploads');
 app.use(express.static(uploadsDir));
 
