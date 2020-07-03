@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const api = require('./api/v1/index');
+const auth = require('./auth/routes/index');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -14,10 +15,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
 
+// passport
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const Strategy = require('passport-local').Strategy;
+const User = require('./auth/models/user');
 
 app.use(cookieParser());
 app.use(session({
@@ -37,10 +40,30 @@ passport.deserializeUser((user, cb) => {
 	cb(null, user);
 });
 
+passport.use(new Strategy({
+	usernameField: 'username',
+	passwordField: 'password'
+}, (name, pwd, cb) => {
+	// We need a User model
+	User.findOne({ username: name }, (err, user) => {
+		if (err) {
+			console.error(`Could not find ${name} in MongoDB. Error: `, err)
+		}
+		if (user.password != pwd) {
+			console.log(`Wrong password for ${name}`);
+		} else {
+			console.log(`${name} found in MongoDB and authenticated`);
+			cb(null, user);
+		}
+	});
+
+}));
+
 const uploadsDir = path.join(__dirname, './uploads');
 app.use(express.static(uploadsDir));
 
 app.use('/api/v1', api);
+app.use('/auth', auth);
 app.use((req, res) => {
 	const err = new Error('404 - Not found!');
 	err.status = 400;
