@@ -12,7 +12,8 @@ import { ErrorPageComponent } from './errorpage/errorpage.component';
 import { AdminComponent } from './admin/admin.component';
 import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.component';
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
-import { BlogpostEditComponent } from './blogpost-edit/blogpost-edit.component'
+import { BlogpostEditComponent } from './blogpost-edit/blogpost-edit.component';
+import { AuthComponent } from './auth/auth.component'
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BlogpostEditComponent } from './blogpost-edit/blogpost-edit.component'
     ErrorPageComponent,
     AdminComponent,
     BlogpostCreateComponent,
-    BlogpostEditComponent
+    BlogpostEditComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

@@ -26,7 +26,8 @@ app.use(cookieParser());
 app.use(session({
 	secret: 'My top secret',
 	resave: true,
-	saveUninitialized: true
+	saveUninitialized: true,
+	name: 'whisky-cookie'
 }));
 
 app.use(passport.initialize());
