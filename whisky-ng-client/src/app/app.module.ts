@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +14,7 @@ import { BlogpostCreateComponent } from './blogpost-create/blogpost-create.compo
 import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 import { BlogpostEditComponent } from './blogpost-edit/blogpost-edit.component';
 import { AuthComponent } from './auth/auth.component'
+import { AddCookieInterceptor } from './add-cookies.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,13 @@ import { AuthComponent } from './auth/auth.component'
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AddCookieInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
