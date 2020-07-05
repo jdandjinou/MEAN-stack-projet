@@ -13,7 +13,9 @@ app.set('port', (process.env.PORT || port3000));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(cors());
+
+// Use corse
+app.use(cors({credentials: true, origin: 'http://localhost:4200'}));
 
 // passport
 const passport = require('passport');
