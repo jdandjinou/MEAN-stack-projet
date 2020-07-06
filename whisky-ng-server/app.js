@@ -49,10 +49,15 @@ passport.use(new Strategy({
 }, (name, pwd, cb) => {
 	// We need a User model
 	User.findOne({ username: name }, (err, user) => {
+		if (!user) {
+			return console.error(`Could not find ${name} in MongoDB`);
+			
+		}
 		if (err) {
 			console.error(`Could not find ${name} in MongoDB. Error: `, err);
 			cb(null, false);
 		}
+		
 		if (user.password != pwd) {
 			console.log(`Wrong password for ${name}`);
 			cb(null, false);
