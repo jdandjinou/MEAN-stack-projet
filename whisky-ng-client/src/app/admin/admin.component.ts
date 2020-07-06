@@ -4,6 +4,7 @@ import { Blogpost } from '../models/blogpost';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin',
@@ -13,6 +14,8 @@ import { Router } from '@angular/router';
 export class AdminComponent implements OnInit {
   allBlogposts: Blogpost[];
  // blogposts$: Observable<Blogpost[]>
+
+  public errorFromServer: string = '';
 
   constructor(private blogpostService: BlogpostService,
               private authService: AuthService,
@@ -59,7 +62,8 @@ export class AdminComponent implements OnInit {
       })
   }
 
-  private handleError(error: Error): void {
+  private handleError(error: HttpErrorResponse): void {
+    this.errorFromServer = `Error ${error.status} - ${error.statusText}`
     console.error(error);
   }
 

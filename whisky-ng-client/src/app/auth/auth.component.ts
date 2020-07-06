@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -13,6 +14,9 @@ export class AuthComponent implements OnInit {
     username: '',
     password: ''
   }
+
+  public errorFromServer: string = '';
+  public loginFailMessage: string = 'Username or password is wrong';
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -30,7 +34,8 @@ export class AuthComponent implements OnInit {
     this.router.navigate(['/admin']);
   }
 
-  private handleError(err: Error): void {
+  private handleError(err: HttpErrorResponse): void {
+    this.errorFromServer = `Error ${err.status} - ${err.statusText}.`;
     console.error('Not logged in', err);
   }
   
