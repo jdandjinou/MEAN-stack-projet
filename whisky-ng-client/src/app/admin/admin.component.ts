@@ -19,6 +19,10 @@ export class AdminComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    if (!this.authService.isAuthenticated) {
+      this.router.navigate(['/auth'])
+    }
+
     this.blogpostService
       .getBlogpost()
       .subscribe(data => this.refresh(data));
