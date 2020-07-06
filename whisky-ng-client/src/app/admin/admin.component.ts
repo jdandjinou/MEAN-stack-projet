@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BlogpostService } from '../blogpost.service';
 import { Blogpost } from '../models/blogpost';
 import { Observable } from 'rxjs';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -12,7 +14,9 @@ export class AdminComponent implements OnInit {
   allBlogposts: Blogpost[];
  // blogposts$: Observable<Blogpost[]>
 
-  constructor(private blogpostService: BlogpostService) { }
+  constructor(private blogpostService: BlogpostService,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.blogpostService
@@ -53,7 +57,16 @@ export class AdminComponent implements OnInit {
 
   private handleError(error: Error): void {
     console.error(error);
-  };
+  }
+
+  public logout(): void {
+    this.authService.logout()
+      .subscribe(data => {
+        console.log(data);
+      }, err => console.error(err));
+    
+    this.router.navigate(['/auth']);
+  }
  
 
 }

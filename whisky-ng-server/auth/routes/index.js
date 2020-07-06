@@ -36,4 +36,11 @@ router.get('/failure', (req, res) => {
 	res.status(401).json({msg: 'Not logged in. Username or password is wrong'});
 });
 
+router.get('/logout', (req, res) => {
+	req.logOut();
+	res.status(200).json({
+		msg: 'Log out successfully'
+	});
+});
+
 module.exports = router;
