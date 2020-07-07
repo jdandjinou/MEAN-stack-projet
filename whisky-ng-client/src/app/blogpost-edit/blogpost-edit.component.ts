@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogpostService } from '../blogpost.service';
 import { FormBuilder, FormGroup, FormGroupDirective } from '@angular/forms';
 import { Blogpost } from '../models/blogpost';
@@ -17,7 +17,8 @@ export class BlogpostEditComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private blogpostService: BlogpostService,
               private activateRoute: ActivatedRoute,
-              private el: ElementRef) { }
+              private el: ElementRef,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.blogpostId = this.activateRoute.snapshot.paramMap.get('id');
@@ -65,6 +66,8 @@ export class BlogpostEditComponent implements OnInit {
       this.blogpostService
         .updateBlogPost(this.blogpostId, this.editForm.value)
         .subscribe(data => this.handleSucces(data, formDirective), error => this.handleError(error));
+      
+      this.router.navigate(['/admin']);
     }
   }
 
