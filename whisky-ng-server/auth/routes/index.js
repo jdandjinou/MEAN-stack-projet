@@ -43,4 +43,19 @@ router.get('/logout', (req, res) => {
 	});
 });
 
+router.get('/users', (req, res) => {
+	User.find()
+		.sort()
+		.exec()
+		.then(users => {
+			res.status(200).json(users)
+		})
+		.catch(err => {
+			res(500).json({
+				message: 'Users not found',
+				err: err
+			})
+		})
+})
+
 module.exports = router;
